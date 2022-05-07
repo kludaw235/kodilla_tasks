@@ -1,4 +1,6 @@
 def prime_factors(number):
+    if not isinstance(number, int):
+        raise TypeError()
     if number <= 1:
         raise ValueError()
     factors = []
