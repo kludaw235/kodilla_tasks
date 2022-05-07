@@ -1,6 +1,7 @@
 def prime_factors(number):
     factors = []
-    for i in range(2, number+1):
+    i = 2
+    while True:
         while True:
             if number % i == 0:
                 if i == number:
@@ -11,6 +12,9 @@ def prime_factors(number):
                     continue
             else:
                 break
+        if i == number:
+            break
+        i += 1
 
 
     factors.append(number)
