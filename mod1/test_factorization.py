@@ -52,10 +52,38 @@ def test_one():
     except ValueError:
         pass
 
+def test_float_data():
+    try:
+        result = prime_factors(2.5)
+        assert False, f'Expected ValueError, got {result}'
+    except TypeError:
+        pass
+
+def test_string_data():
+    try:
+        result = prime_factors('number')
+        assert False, f'Expected ValueError, got {result}'
+    except TypeError:
+        pass
+
+def test_list_data():
+    try:
+        result = prime_factors([2, 5])
+        assert False, f'Expected ValueError, got {result}'
+    except TypeError:
+        pass
+
+def test_tupple_data():
+    try:
+        result = prime_factors((2, 5))
+        assert False, f'Expected ValueError, got {result}'
+    except TypeError:
+        pass
+
 if __name__ == '__main__':
     for test in (test_import_factorization, test_result_is_a_list, test_number_is_a_prime, test_number_is_not_a_prime,
                  test_number_with_same_factors, test_number_with_different_factors, test_big_number, test_negative_number,
-                 test_zero, test_one):
+                 test_zero, test_one, test_float_data, test_string_data, test_list_data, test_tupple_data):
         print(f'{test.__name__}: ', end=' ')
         try:
             test()
