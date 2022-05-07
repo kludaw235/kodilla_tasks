@@ -1,3 +1,5 @@
+from mod1.factorization import prime_factors
+
 def test_import_factorization():
     try:
         from factorization import prime_factors
@@ -5,9 +7,13 @@ def test_import_factorization():
     except ImportError as error:
         assert False, error
 
+def test_result_is_a_list():
+    result = prime_factors(2)
+    assert type(result) is list, 'Result is not a list'
+
 
 if __name__ == '__main__':
-    for test in (test_import_factorization, ):
+    for test in (test_import_factorization, test_result_is_a_list):
         print(f'{test.__name__}: ', end=' ')
         try:
             test()
