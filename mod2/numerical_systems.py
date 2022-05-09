@@ -14,7 +14,13 @@ class NumericalSystemsConverter:
         self.target_number = None
 
         if src_system == 'ROM' and target_system == 'DEC':
-           self.rom_to_dec()
+            self.check_rom_if_valid()
+            self.rom_to_dec()
+
+    def check_rom_if_valid(self):
+        if self.number.count('D') > 1 or self.number.count('L') > 1 or self.number.count('V') > 1:
+            raise ValueError()
+
 
     def rom_to_dec(self):
         number_list = list(self.number)
