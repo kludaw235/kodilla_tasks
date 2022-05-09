@@ -13,3 +13,22 @@ def test_import_NumericalSystemsConverter():
 
 def test_rom_to_dec_target_int():
     assert isinstance(nsv('ROM', 'DEC', 'IV').target_number, int)
+
+# def test_rom_to_dec_small_nums():
+#     assert nsv('ROM', 'DEC', 'XXIV').target_number == 24
+
+class TestRomToDecSmallNums:
+    def test_1(self):
+        assert nsv('ROM', 'DEC', 'IV').target_number == 4
+
+    def test_2(self):
+        assert nsv('ROM', 'DEC', 'XXIV').target_number == 24
+
+    def test_3(self):
+        assert nsv('ROM', 'DEC', 'XXXVI').target_number == 36
+
+    def test_4(self):
+        assert nsv('ROM', 'DEC', 'XIIIIII').target_number == 16
+
+    def test_5(self):
+        assert nsv('ROM', 'DEC', 'XXXVI').target_number == 36
