@@ -23,6 +23,28 @@ class NumericalSystemsConverter:
         if self.number.count('C') >= 10 or self.number.count('X') >= 10 or self.number.count('I') >= 10:
             raise ValueError()
 
+        rom_number_list = list(self.number)
+        flag = False
+        for i in rom_number_list:
+            if i == 'I':
+                flag = True
+                continue
+            if flag:
+                if i != 'V' and i != 'X':
+                    raise ValueError()
+            flag = False
+
+        flag = False
+        for i in rom_number_list:
+            if i == 'X':
+                flag = True
+                continue
+            if flag:
+                if i == 'M' or i == 'D':
+                    raise ValueError()
+            flag = False
+
+
 
 
     def rom_to_dec(self):
@@ -38,4 +60,7 @@ class NumericalSystemsConverter:
 
 
 if __name__ == '__main__':
-    NumericalSystemsConverter('ROM', 'DEC', 'XVIIIIII')
+    x = NumericalSystemsConverter('ROM', 'DEC', 'CMXCIX')
+
+    print(x.target_number)
+
