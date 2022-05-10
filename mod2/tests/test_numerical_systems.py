@@ -70,6 +70,9 @@ class TestSmallerDenominationsAsMCX:
         with pytest.raises(ValueError):
             print(nsv('ROM', 'DEC', 'CCCCCCCCCCC').target_number)
 
+    def test_smaller_correct_M(self):
+        assert nsv('ROM', 'DEC', 'CCCCCCCCC').target_number == 900
+
     def test_smaller_equal_C(self):
         with pytest.raises(ValueError):
             print(nsv('ROM', 'DEC', 'XXXXXXXXXX').target_number)
@@ -78,6 +81,9 @@ class TestSmallerDenominationsAsMCX:
         with pytest.raises(ValueError):
             print(nsv('ROM', 'DEC', 'XXXXXXXXXXX').target_number)
 
+    def test_smaller_correct_C(self):
+        assert nsv('ROM', 'DEC', 'XXXXXXXXX').target_number == 90
+
     def test_smaller_equal_X(self):
         with pytest.raises(ValueError):
             print(nsv('ROM', 'DEC', 'IIIIIIIIII').target_number)
@@ -85,3 +91,8 @@ class TestSmallerDenominationsAsMCX:
     def test_smaller_exceed_X(self):
         with pytest.raises(ValueError):
             print(nsv('ROM', 'DEC', 'IIIIIIIIIII').target_number)
+
+    def test_smaller_correct_X(self):
+        assert nsv('ROM', 'DEC', 'IIIIIIIII').target_number == 9
+
+
