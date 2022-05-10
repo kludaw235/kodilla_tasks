@@ -20,6 +20,9 @@ class NumericalSystemsConverter:
     def check_rom_if_valid(self):
         if self.number.count('D') > 1 or self.number.count('L') > 1 or self.number.count('V') > 1:
             raise ValueError()
+        if self.number.count('C') >= 10 or self.number.count('X') >= 10 or self.number.count('I') >= 10:
+            raise ValueError()
+
 
 
     def rom_to_dec(self):
@@ -32,9 +35,7 @@ class NumericalSystemsConverter:
             else:
                 self.target_number -= rom_to_dec_dict[i]
             self.previous_number = rom_to_dec_dict[i]
-            print(self.target_number, self.previous_number)
-        print(self.target_number)
 
 
 if __name__ == '__main__':
-    NumericalSystemsConverter('ROM', 'DEC', 'MDCLXV')
+    NumericalSystemsConverter('ROM', 'DEC', 'XVIIIIII')
