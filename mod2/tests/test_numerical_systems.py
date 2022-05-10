@@ -96,3 +96,26 @@ class TestSmallerDenominationsAsMCX:
         assert nsv('ROM', 'DEC', 'IIIIIIIII').target_number == 9
 
 
+class TestSubLeadingNumsIXC:
+    inputs = ['M', 'D', 'C', 'L', 'X', 'V', 'I']
+    def check_result(self, test_value, result):
+        if not result:
+            with pytest.raises(ValueError):
+                print(nsv('ROM', 'DEC', test_value).target_number)
+        else:
+            assert nsv('ROM', 'DEC', test_value).target_number == result
+
+    def test_sub_leading_I(self):
+        expected_results = [False, False, False, False, 9, 4, 2]
+        for i in range(len(self.inputs)):
+            self.check_result('I' + self.inputs[i], expected_results[i])
+
+    def test_sub_leading_X(self):
+        expected_results = [False, False, 90, 40, 20, 15, 11]
+        for i in range(len(self.inputs)):
+            self.check_result('X' + self.inputs[i], expected_results[i])
+
+    def test_sub_leading_C(self):
+        expected_results = [900, 400, 200, 150, 110, 105, 101]
+        for i in range(len(self.inputs)):
+            self.check_result('C' + self.inputs[i], expected_results[i])
