@@ -25,24 +25,48 @@ class NumericalSystemsConverter:
 
         rom_number_list = list(self.number)
         flag = False
+        counter = 0
         for i in rom_number_list:
             if i == 'I':
+                counter += 1
                 flag = True
                 continue
             if flag:
                 if i != 'V' and i != 'X':
                     raise ValueError()
+                else:
+                    if counter > 1:
+                        raise ValueError()
             flag = False
 
         flag = False
+        counter = 0
         for i in rom_number_list:
             if i == 'X':
+                counter += 1
                 flag = True
                 continue
             if flag:
                 if i == 'M' or i == 'D':
                     raise ValueError()
+                elif i != 'I' and i != 'V':
+                    if counter > 1:
+                        raise ValueError()
             flag = False
+
+        flag = False
+        counter = 0
+        for i in rom_number_list:
+            if i == 'C':
+                counter += 1
+                flag = True
+                continue
+            if flag:
+                if i == 'M' or i == 'D':
+                    if counter > 1:
+                        raise ValueError()
+            flag = False
+
 
 
 
@@ -60,7 +84,6 @@ class NumericalSystemsConverter:
 
 
 if __name__ == '__main__':
-    x = NumericalSystemsConverter('ROM', 'DEC', 'CMXCIX')
+    x = NumericalSystemsConverter('ROM', 'DEC', 'XXIV')
 
     print(x.target_number)
-
