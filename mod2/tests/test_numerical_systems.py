@@ -158,6 +158,30 @@ class TestSubLeadingNumsIXC:
     def test_dec_to_rom_target_str(self):
         assert isinstance(nsv('DEC', 'ROM', 4).target_number, str)
 
+    class TestDocToRomSrcValid:
+        def test_src_float(self):
+            with pytest.raises(ValueError):
+             print(nsv('DEC', 'ROM', 2.5).target_number)
+
+        def test_src_list(self):
+            with pytest.raises(ValueError):
+                print(nsv('DEC', 'ROM', [2, 5]).target_number)
+
+        def test_src_tuple(self):
+            with pytest.raises(ValueError):
+                print(nsv('DEC', 'ROM', (2, 5)).target_number)
+
+        def test_src_str(self):
+                assert nsv('DEC', 'ROM', '4').target_number == 'IV'
+
+        def test_negative(self):
+            with pytest.raises(ValueError):
+                print(nsv('DEC', 'ROM', -1).target_number)
+
+        def test_zero(self):
+            with pytest.raises(ValueError):
+                print(nsv('DEC', 'ROM', 0).target_number)
+
     class TestDecToRomSmallNums:
         def test_1(self):
             assert nsv('DEC', 'ROM', 33).target_number == 'XXXIII'
@@ -190,4 +214,5 @@ class TestSubLeadingNumsIXC:
 
         def test_5(self):
             assert nsv('DEC', 'ROM', 4999).target_number == 'MMMMCMXCIX'
+
 
