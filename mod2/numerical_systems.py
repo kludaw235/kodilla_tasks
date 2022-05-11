@@ -102,8 +102,6 @@ class NumericalSystemsConverter:
                     raise ValueError()
             flag = False
 
-
-
     def rom_to_dec(self):
         number_list = list(self.number)
         self.target_number = rom_to_dec_dict[number_list[-1]]
@@ -115,7 +113,13 @@ class NumericalSystemsConverter:
                 self.target_number -= rom_to_dec_dict[i]
             self.previous_number = rom_to_dec_dict[i]
 
+
+    def check_dec_if_valid(self):
+        if self.number > 0:
+            raise ValueError()
+
     def dec_to_rom(self):
+        self.check_dec_if_valid()
         number_list = list(str(self.number))
         multiplier = 1
         test_table = []
@@ -140,6 +144,6 @@ class NumericalSystemsConverter:
         return [key for key, value in rom_to_dec_dict.items() if value == searched]
 
 if __name__ == '__main__':
-    x = NumericalSystemsConverter('DEC', 'ROM', 4839)
+    x = NumericalSystemsConverter('ROM', 'DEC', -1)
 
     print(x.target_number)
