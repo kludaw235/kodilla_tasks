@@ -155,10 +155,10 @@ class TestSubLeadingNumsIXC:
     def test_small_letters(self):
         assert nsv('ROM', 'DEC', 'mdclxvi').target_number == 1666
 
-    def test_rom_to_dec_target_str(self):
+    def test_dec_to_rom_target_str(self):
         assert isinstance(nsv('DEC', 'ROM', 4).target_number, str)
 
-    class TestRomToDecSmallNums:
+    class TestDecToRomSmallNums:
         def test_1(self):
             assert nsv('DEC', 'ROM', 33).target_number == 'XXXIII'
 
@@ -175,7 +175,7 @@ class TestSubLeadingNumsIXC:
             assert nsv('DEC', 'ROM', 1).target_number == 'I'
 
 
-    class TestRomToDecGreatNums:
+    class TestDecToRomGreatNums:
         def test_1(self):
             assert nsv('DEC', 'ROM', 1665).target_number == 'MDCLXV'
 
@@ -190,3 +190,4 @@ class TestSubLeadingNumsIXC:
 
         def test_5(self):
             assert nsv('DEC', 'ROM', 4999).target_number == 'MMMMCMXCIX'
+
