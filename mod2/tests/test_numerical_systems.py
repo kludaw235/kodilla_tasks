@@ -43,7 +43,7 @@ class TestRomToDecGreatNums:
         assert nsv('ROM', 'DEC', 'MMMDCCCLXXXVIII').target_number == 3888
 
     def test_4(self):
-        assert nsv('ROM', 'DEC', 'MMDMCCLCXXVXIII').target_number == 2778
+        assert nsv('ROM', 'DEC', 'MMDCCLXXVIII').target_number == 2778
 
     def test_5(self):
         assert nsv('ROM', 'DEC', 'CMXCIX').target_number == 999
@@ -134,3 +134,20 @@ class TestSubLeadingNumsIXC:
         for i in range(len(self.inputs)-5):
                 with pytest.raises(ValueError):
                     print(nsv('ROM', 'DEC', 'CC' + self.inputs[i]).target_number)
+
+    class TestDescendingOrder:
+        def test_1(self):
+            with pytest.raises(ValueError):
+                print(nsv('ROM', 'DEC', 'IVX').target_number)
+
+        def test_2(self):
+            with pytest.raises(ValueError):
+                print(nsv('ROM', 'DEC', 'XLC').target_number)
+
+        def test_3(self):
+            with pytest.raises(ValueError):
+                print(nsv('ROM', 'DEC', 'CDM').target_number)
+
+        def test_4(self):
+            with pytest.raises(ValueError):
+                print(nsv('ROM', 'DEC', 'IVXLCDM').target_number)
