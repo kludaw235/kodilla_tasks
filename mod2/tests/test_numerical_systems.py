@@ -151,3 +151,6 @@ class TestSubLeadingNumsIXC:
         def test_4(self):
             with pytest.raises(ValueError):
                 print(nsv('ROM', 'DEC', 'IVXLCDM').target_number)
+
+    def test_small_letters(self):
+        assert nsv('ROM', 'DEC', 'mdclxvi').target_number == 1666
