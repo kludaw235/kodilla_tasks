@@ -116,10 +116,29 @@ class NumericalSystemsConverter:
             self.previous_number = rom_to_dec_dict[i]
 
     def dec_to_rom(self):
-        self.target_number = str(self.number)
+        number_list = list(str(self.number))
+        multiplier = 1
+        test_table = []
+        for i in reversed(number_list):
+            test_table.insert(0, [int(i), multiplier])
+            multiplier *= 10
 
+        self.target_number = ''
+        for times, multiplier in test_table:
+            if times <= 3:
+                self.target_number += times * self.get_value_by_key(multiplier)[0]
+            elif times == 4:
+                self.target_number += self.get_value_by_key(multiplier)[0] + self.get_value_by_key(multiplier*5)[0]
+            elif times == 9:
+                self.target_number += self.get_value_by_key(multiplier)[0] + self.get_value_by_key(multiplier*10)[0]
+            else:
+                self.target_number += self.get_value_by_key(multiplier*5)[0] + (times-5) * self.get_value_by_key(multiplier)[0]
+
+
+    def get_value_by_key(self, searched):
+        return [key for key, value in rom_to_dec_dict.items() if value == searched]
 
 if __name__ == '__main__':
-    x = NumericalSystemsConverter('ROM', 'DEC', 'ix')
+    x = NumericalSystemsConverter('DEC', 'ROM', 60)
 
     print(x.target_number)
