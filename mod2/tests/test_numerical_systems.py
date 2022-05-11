@@ -158,7 +158,7 @@ class TestSubLeadingNumsIXC:
     def test_rom_to_dec_target_str(self):
         assert isinstance(nsv('DEC', 'ROM', 4).target_number, str)
 
-    class TestDecToRomSmallNums:
+    class TestRomToDecSmallNums:
         def test_1(self):
             assert nsv('DEC', 'ROM', 33).target_number == 'XXXIII'
 
