@@ -14,6 +14,7 @@ class NumericalSystemsConverter:
         self.target_number = None
 
         if src_system == 'ROM' and target_system == 'DEC':
+            self.number = self.number.upper()
             self.check_rom_if_valid()
             self.rom_to_dec()
 
@@ -113,6 +114,6 @@ class NumericalSystemsConverter:
 
 
 if __name__ == '__main__':
-    x = NumericalSystemsConverter('ROM', 'DEC', 'IVXLCDM')
+    x = NumericalSystemsConverter('ROM', 'DEC', 'ix')
 
     print(x.target_number)
