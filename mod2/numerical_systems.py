@@ -17,6 +17,9 @@ class NumericalSystemsConverter:
             self.number = self.number.upper()
             self.check_rom_if_valid()
             self.rom_to_dec()
+        elif src_system == 'DEC' and target_system == 'ROM':
+            self.dec_to_rom()
+
 
     def check_rom_if_valid(self):
         if self.number.count('D') > 1 or self.number.count('L') > 1 or self.number.count('V') > 1:
@@ -111,6 +114,9 @@ class NumericalSystemsConverter:
             else:
                 self.target_number -= rom_to_dec_dict[i]
             self.previous_number = rom_to_dec_dict[i]
+
+    def dec_to_rom(self):
+        self.target_number = str(self.number)
 
 
 if __name__ == '__main__':
