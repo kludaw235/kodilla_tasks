@@ -125,7 +125,8 @@ class NumericalSystemsConverter:
 
         self.target_number = ''
         for times, multiplier in test_table:
-            if times <= 3:
+            print(test_table)
+            if times <= 3 or multiplier == rom_to_dec_dict['M']:
                 self.target_number += times * self.get_value_by_key(multiplier)[0]
             elif times == 4:
                 self.target_number += self.get_value_by_key(multiplier)[0] + self.get_value_by_key(multiplier*5)[0]
@@ -139,6 +140,6 @@ class NumericalSystemsConverter:
         return [key for key, value in rom_to_dec_dict.items() if value == searched]
 
 if __name__ == '__main__':
-    x = NumericalSystemsConverter('DEC', 'ROM', 60)
+    x = NumericalSystemsConverter('DEC', 'ROM', 4839)
 
     print(x.target_number)
