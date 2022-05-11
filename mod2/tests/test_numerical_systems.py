@@ -173,3 +173,20 @@ class TestSubLeadingNumsIXC:
 
         def test_5(self):
             assert nsv('DEC', 'ROM', 1).target_number == 'I'
+
+
+    class TestRomToDecGreatNums:
+        def test_1(self):
+            assert nsv('DEC', 'ROM', 1665).target_number == 'MDCLXV'
+
+        def test_2(self):
+            assert nsv('DEC', 'ROM', 4444).target_number == 'MMMMCDXLIV'
+
+        def test_3(self):
+            assert nsv('DEC', 'ROM', 3888).target_number == 'MMMDCCCLXXXVIII'
+
+        def test_4(self):
+            assert nsv('DEC', 'ROM', 2778).target_number == 'MMDCCLXXVIII'
+
+        def test_5(self):
+            assert nsv('DEC', 'ROM', 4999).target_number == 'MMMMCMXCIX'
