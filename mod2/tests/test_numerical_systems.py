@@ -158,7 +158,7 @@ class TestSubLeadingNumsIXC:
     def test_dec_to_rom_target_str(self):
         assert isinstance(nsv('DEC', 'ROM', 4).target_number, str)
 
-    class TestDocToRomSrcValid:
+    class TestDecToRomSrcValid:
         def test_src_float(self):
             with pytest.raises(ValueError):
              print(nsv('DEC', 'ROM', 2.5).target_number)
