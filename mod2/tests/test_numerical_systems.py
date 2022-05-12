@@ -2,7 +2,6 @@ from mod2.numerical_systems import NumericalSystemsConverter as nsv
 import pytest
 
 
-
 def test_import_NumericalSystemsConverter():
     try:
         from mod2.numerical_systems import NumericalSystemsConverter
@@ -48,6 +47,7 @@ class TestRomToDecGreatNums:
     def test_5(self):
         assert nsv('ROM', 'DEC', 'CMXCIX').target_number == 999
 
+
 class TestSingleAppearDLV:
     def test_single_appear_D(self):
         with pytest.raises(ValueError):
@@ -60,6 +60,7 @@ class TestSingleAppearDLV:
     def test_single_appear_V(self):
         with pytest.raises(ValueError):
             print(nsv('ROM', 'DEC', 'VVVI').target_number)
+
 
 class TestSmallerDenominationsAsMCX:
     def test_smaller_equal_M(self):
@@ -98,7 +99,9 @@ class TestSmallerDenominationsAsMCX:
 
 class TestSubLeadingNumsIXC:
     inputs = ['M', 'D', 'C', 'L', 'X', 'V', 'I']
-    def check_result(self, test_value, result):
+
+    @staticmethod
+    def check_result(test_value, result):
         if not result:
             with pytest.raises(ValueError):
                 print(nsv('ROM', 'DEC', test_value).target_number)
@@ -121,19 +124,19 @@ class TestSubLeadingNumsIXC:
             self.check_result('C' + self.inputs[i], expected_results[i])
 
     def test_single_sub_leading_I(self):
-        for i in range(len(self.inputs)-1):
-                with pytest.raises(ValueError):
-                    print(nsv('ROM', 'DEC', 'II' + self.inputs[i]).target_number)
+        for i in range(len(self.inputs) - 1):
+            with pytest.raises(ValueError):
+                print(nsv('ROM', 'DEC', 'II' + self.inputs[i]).target_number)
 
     def test_single_sub_leading_X(self):
-        for i in range(len(self.inputs)-3):
-                with pytest.raises(ValueError):
-                    print(nsv('ROM', 'DEC', 'XX' + self.inputs[i]).target_number)
+        for i in range(len(self.inputs) - 3):
+            with pytest.raises(ValueError):
+                print(nsv('ROM', 'DEC', 'XX' + self.inputs[i]).target_number)
 
     def test_single_sub_leading_C(self):
-        for i in range(len(self.inputs)-5):
-                with pytest.raises(ValueError):
-                    print(nsv('ROM', 'DEC', 'CC' + self.inputs[i]).target_number)
+        for i in range(len(self.inputs) - 5):
+            with pytest.raises(ValueError):
+                print(nsv('ROM', 'DEC', 'CC' + self.inputs[i]).target_number)
 
     class TestDescendingOrder:
         def test_1(self):
@@ -161,7 +164,7 @@ class TestSubLeadingNumsIXC:
     class TestDecToRomSrcValid:
         def test_src_float(self):
             with pytest.raises(ValueError):
-             print(nsv('DEC', 'ROM', 2.5).target_number)
+                print(nsv('DEC', 'ROM', 2.5).target_number)
 
         def test_src_list(self):
             with pytest.raises(ValueError):
@@ -172,7 +175,7 @@ class TestSubLeadingNumsIXC:
                 print(nsv('DEC', 'ROM', (2, 5)).target_number)
 
         def test_src_str(self):
-                assert nsv('DEC', 'ROM', '4').target_number == 'IV'
+            assert nsv('DEC', 'ROM', '4').target_number == 'IV'
 
         def test_negative(self):
             with pytest.raises(ValueError):
@@ -198,7 +201,6 @@ class TestSubLeadingNumsIXC:
         def test_5(self):
             assert nsv('DEC', 'ROM', 1).target_number == 'I'
 
-
     class TestDecToRomGreatNums:
         def test_1(self):
             assert nsv('DEC', 'ROM', 1665).target_number == 'MDCLXV'
@@ -214,5 +216,3 @@ class TestSubLeadingNumsIXC:
 
         def test_5(self):
             assert nsv('DEC', 'ROM', 4999).target_number == 'MMMMCMXCIX'
-
-
