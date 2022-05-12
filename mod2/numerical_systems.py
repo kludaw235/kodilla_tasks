@@ -84,6 +84,12 @@ class NumericalSystemsConverter:
                 self.target_number -= rom_to_dec_dict[i]
             previous_number = rom_to_dec_dict[i]
 
+    def check_dec_if_valid(self):
+        if not (isinstance(self.number, int) or isinstance(self.number, str)):
+            raise ValueError()
+        if int(self.number) < 1:
+            raise ValueError()
+
     def dec_to_rom(self):
         self.check_dec_if_valid()
         number_list = list(str(self.number))
