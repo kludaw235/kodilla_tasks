@@ -1,12 +1,17 @@
 rom_to_dec_dict = \
-    {'I' : 1,
-    'V' : 5,
-    'X' : 10,
-    'L': 50,
-    'C': 100,
-    'D': 500,
-    'M': 1000,
+    {'I': 1,
+     'V': 5,
+     'X': 10,
+     'L': 50,
+     'C': 100,
+     'D': 500,
+     'M': 1000,
      }
+
+
+def get_value_by_key(searched):
+    return [key for key, value in rom_to_dec_dict.items() if value == searched]
+
 
 class NumericalSystemsConverter:
     def __init__(self, src_system, target_system, number):
@@ -20,98 +25,64 @@ class NumericalSystemsConverter:
         elif src_system == 'DEC' and target_system == 'ROM':
             self.dec_to_rom()
 
-
     def check_rom_if_valid(self):
+
+        def check_counter(c):
+            if c > 1:
+                raise ValueError()
+
+        def order_validation(leading_numeral, invalid_next_numerals):
+            rom_number_list = list(self.number)
+            counter = 0
+            prev = None
+            flag = False
+
+            for i in rom_number_list:
+                if i == leading_numeral:
+                    counter += 1
+                    prev = i
+                    flag = True
+                    continue
+                if flag:
+                    if prev == 'C':
+                        for letter in invalid_next_numerals:
+                            if i == letter:
+                                check_counter(counter)
+                    elif prev == 'X':
+                        for letter in invalid_next_numerals:
+                            if i == letter:
+                                raise ValueError()
+                        if i != 'I' and i != 'V':
+                            check_counter(counter)
+                    else:
+                        for letter in invalid_next_numerals:
+                            if i == letter:
+                                raise ValueError()
+                        else:
+                            check_counter(counter)
+
         if self.number.count('D') > 1 or self.number.count('L') > 1 or self.number.count('V') > 1:
             raise ValueError()
         if self.number.count('C') >= 10 or self.number.count('X') >= 10 or self.number.count('I') >= 10:
             raise ValueError()
 
-        rom_number_list = list(self.number)
-        flag = False
-        counter = 0
-        for i in rom_number_list:
-            if i == 'I':
-                counter += 1
-                flag = True
-                continue
-            if flag:
-                if i != 'V' and i != 'X':
-                    raise ValueError()
-                else:
-                    if counter > 1:
-                        raise ValueError()
-            flag = False
-
-
-        flag = False
-        counter = 0
-        for i in rom_number_list:
-            if i == 'X':
-                counter += 1
-                flag = True
-                continue
-            if flag:
-                if i == 'M' or i == 'D':
-                    raise ValueError()
-                elif i != 'I' and i != 'V':
-                    if counter > 1:
-                        raise ValueError()
-            flag = False
-
-        flag = False
-        counter = 0
-        for i in rom_number_list:
-            if i == 'C':
-                counter += 1
-                flag = True
-                continue
-            if flag:
-                if i == 'M' or i == 'D':
-                    if counter > 1:
-                        raise ValueError()
-            flag = False
-
-        flag = False
-        for i in rom_number_list:
-            if i == 'V':
-                flag = True
-                continue
-            if flag:
-                if i != 'I':
-                    raise ValueError()
-            flag = False
-
-        flag = False
-        for i in rom_number_list:
-            if i == 'L':
-                flag = True
-                continue
-            if flag:
-                if i != 'I' and i != 'V' and i != 'X':
-                    raise ValueError()
-            flag = False
-
-        flag = False
-        for i in rom_number_list:
-            if i == 'D':
-                flag = True
-                continue
-            if flag:
-                if i == 'M':
-                    raise ValueError()
-            flag = False
+        order_validation('I', 'MDCL')
+        order_validation('X', 'MD')
+        order_validation('C', 'MD')
+        order_validation('V', 'MDCLX')
+        order_validation('L', 'MDC')
+        order_validation('D', 'M')
 
     def rom_to_dec(self):
         number_list = list(self.number)
         self.target_number = rom_to_dec_dict[number_list[-1]]
-        self.previous_number = rom_to_dec_dict[number_list[-1]]
+        previous_number = rom_to_dec_dict[number_list[-1]]
         for i in reversed(number_list[:-1]):
-            if self.previous_number <= rom_to_dec_dict[i]:
+            if previous_number <= rom_to_dec_dict[i]:
                 self.target_number += rom_to_dec_dict[i]
             else:
                 self.target_number -= rom_to_dec_dict[i]
-            self.previous_number = rom_to_dec_dict[i]
+            previous_number = rom_to_dec_dict[i]
 
     def dec_to_rom(self):
         self.check_dec_if_valid()
@@ -126,19 +97,11 @@ class NumericalSystemsConverter:
         for times, multiplier in test_table:
             print(test_table)
             if times <= 3 or multiplier == rom_to_dec_dict['M']:
-                self.target_number += times * self.get_value_by_key(multiplier)[0]
+                self.target_number += times * get_value_by_key(multiplier)[0]
             elif times == 4:
-                self.target_number += self.get_value_by_key(multiplier)[0] + self.get_value_by_key(multiplier*5)[0]
+                self.target_number += get_value_by_key(multiplier)[0] + get_value_by_key(multiplier * 5)[0]
             elif times == 9:
-                self.target_number += self.get_value_by_key(multiplier)[0] + self.get_value_by_key(multiplier*10)[0]
+                self.target_number += get_value_by_key(multiplier)[0] + get_value_by_key(multiplier * 10)[0]
             else:
-                self.target_number += self.get_value_by_key(multiplier*5)[0] + (times-5) * self.get_value_by_key(multiplier)[0]
-
-
-    def get_value_by_key(self, searched):
-        return [key for key, value in rom_to_dec_dict.items() if value == searched]
-
-if __name__ == '__main__':
-    x = NumericalSystemsConverter('DEC', 'ROM', 4839)
-
-    print(x.target_number)
+                self.target_number += get_value_by_key(multiplier * 5)[0] + (times - 5) * \
+                                      get_value_by_key(multiplier)[0]
